@@ -1,0 +1,34 @@
+{
+  "name": "seranse-shop",
+  "version": "1.0.0",
+  "description": "Little personnal e-shop",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SengSerany/seranse-shop.git"
+  },
+  "keywords": [
+    "e-shop",
+    "e-commerce",
+    "mern"
+  ],
+  "author": "SengSerany",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SengSerany/seranse-shop/issues"
+  },
+  "homepage": "https://github.com/SengSerany/seranse-shop#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
