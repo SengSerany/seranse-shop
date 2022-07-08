@@ -1,9 +1,12 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
+require('dotenv').config();
+const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/errorHandler');
 
 const port = process.env.PORT || 5000;
+connectDB();
 
 // Call router
 const productRouter = require('./routes/productRoutes');
