@@ -12,6 +12,10 @@ const AuthSchema = new mongoose.Schema(
       unique: true,
       required: [true, 'You must add an email'],
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
