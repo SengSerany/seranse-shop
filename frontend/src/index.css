@@ -1,0 +1,102 @@
+/* ---------------------------- */
+/* Custom properties            */
+/* ---------------------------- */
+
+:root {
+  /* Colors */
+  --clr-strong_blue: 188 77% 35%;
+  --clr-light_blue: 179 31% 63%;
+  --clr-brown: 19 9% 46%;
+  --clr-salmon: 11 55% 79%;
+  --clr-red: 350 61% 55%;
+  --clr-black: 0 0% 0%;
+  --clr-white: 0 0% 100%;
+
+  /* Font-sizes */
+  --fs-900: 9.375rem;
+  --fs-800: 6.25rem;
+  --fs-700: 3.5rem;
+  --fs-650: 2.75rem;
+  --fs-600: 2rem;
+  --fs-500: 1.75rem;
+  --fs-400: 1.125rem;
+  --fs-300: 1rem;
+  --fs-200: 0.875rem;
+
+  /* Font-families */
+  --ff-primary: 'Oswald', sans-serif;
+  --ff-secondary: 'Raleway', sans-serif;
+  --ff-sans-cond: 'Roboto Condensed', sans-serif;
+}
+
+/* ---------------------------- */
+/* Reset                        */
+/* ---------------------------- */
+
+/* https://piccalil.li/blog/a-modern-css-reset/ */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+  margin: 0;
+}
+
+/* Reset font-weight */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  font-weight: 400;
+}
+
+/* Set up body */
+body {
+  font-family: var(--ff-secondary);
+  font-size: var(--fs-400);
+  line-height: 1.5;
+  min-width: 100vh;
+}
+
+/* Make images easier to work with */
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove animations for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
