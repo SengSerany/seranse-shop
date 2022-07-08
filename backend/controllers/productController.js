@@ -1,37 +1,43 @@
+const asyncHandler = require('express-async-handler');
+
 // Index
-const indexProducts = (req, res) => {
+const indexProducts = asyncHandler(async (req, res) => {
   res.status(200).json({ entre_point: 'Index products' });
-};
+});
 
 // Show
-const showProduct = (req, res) => {
+const showProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ entre_point: 'Show product' });
-};
+});
 
 // New
-const newProduct = (req, res) => {
+const newProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ entre_point: 'New product' });
-};
+});
 
 // Create
-const createProduct = (req, res) => {
+const createProduct = asyncHandler(async (req, res) => {
+  const { name, price, description } = req.body;
+  if (!name || !price || !description) {
+    res.status(400).json({ error: 'Please provide all fields' });
+  }
   res.status(200).json({ entre_point: 'Create product' });
-};
+});
 
 // Edit
-const editProduct = (req, res) => {
+const editProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ entre_point: 'Edit product' });
-};
+});
 
 // Update
-const updateProduct = (req, res) => {
+const updateProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ entre_point: 'Update product' });
-};
+});
 
 // Delete
-const deleteProduct = (req, res) => {
+const deleteProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ entre_point: 'Delete product' });
-};
+});
 
 module.exports = {
   indexProducts,
