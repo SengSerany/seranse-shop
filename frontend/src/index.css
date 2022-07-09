@@ -100,3 +100,11 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+/* It removes the outline from the input field when it is focused. */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
