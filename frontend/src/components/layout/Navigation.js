@@ -43,11 +43,11 @@ function Navigation() {
                 Acceuil
               </Link>
               <Link
-                to="#"
+                to="/about"
                 className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
                 onClick={switchNavState}
               >
-                à propos
+                à propos du site
               </Link>
               {user.id !== null ? (
                 <>

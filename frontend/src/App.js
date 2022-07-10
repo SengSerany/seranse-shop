@@ -6,6 +6,7 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import IndexProducts from './pages/products/IndexProducts';
 import Profile from './pages/auth/Profile';
+import About from './pages/about/About';
 import AuthToasts from './components/auth/AuthToasts';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/about" element={<About />} />
             <Route exact path="/" element={<IndexProducts />} />
           </Routes>
         </div>
