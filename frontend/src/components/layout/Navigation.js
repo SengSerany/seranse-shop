@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../features/auth/authSlice';
 
 function Navigation() {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const switchNavState = () => {
@@ -58,7 +60,13 @@ function Navigation() {
                   </Link>
                   <button
                     className="menu-btn btn-logout uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
-                    onClick={() => switchNavState()}
+                    onClick={() => {
+                      dispatch(logout());
+                      // dispatch(logoutProductState());
+                      // dispatch(logoutCartState());
+                      // dispatch(logoutOrderState());
+                      switchNavState();
+                    }}
                   >
                     Se déconnecter
                   </button>

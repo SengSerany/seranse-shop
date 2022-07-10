@@ -21,16 +21,16 @@ const login = async (userData) => {
 // };
 
 // Log out
-// const logout = async () => {
-//   const response = await axios.delete(`${API_URL}/logout`);
-//   return response.data;
-// };
+const logout = async () => {
+  const response = await axios.delete(`${API_URL}/logout`);
+  return response.data;
+};
 
 const authService = {
   register,
   login,
   //   getUser,
-  //   logout,
+  logout,
 };
 
 export default authService;
