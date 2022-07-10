@@ -66,6 +66,12 @@ p {
   font-weight: 400;
 }
 
+/* Reset links */
+a {
+  text-decoration: none;
+  color: hsl(var(--clr-black));
+}
+
 /* Set up body */
 body {
   font-family: var(--ff-secondary);
@@ -99,4 +105,12 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* It removes the outline from the input field when it is focused. */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
 }

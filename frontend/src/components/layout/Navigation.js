@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../features/auth/authSlice';
 
 function Navigation() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const switchNavState = () => {
     setMenuIsOpen(!menuIsOpen);
@@ -32,33 +36,50 @@ function Navigation() {
             </button>
             <nav className="overlay-content">
               <Link
-                to="#"
+                to="/"
                 className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
                 onClick={switchNavState}
               >
                 Acceuil
               </Link>
               <Link
-                to="#"
+                to="/about"
                 className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
                 onClick={switchNavState}
               >
-                à propos
+                à propos du site
               </Link>
-              <Link
-                to="/login"
-                className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
-                onClick={switchNavState}
-              >
-                Se connecter
-              </Link>
-              <Link
-                to="/register"
-                className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
-                onClick={switchNavState}
-              >
-                S'inscrire
-              </Link>
+              {user.id !== null ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
+                    onClick={switchNavState}
+                  >
+                    Mon compte
+                  </Link>
+                  <button
+                    className="menu-btn btn-logout uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
+                    onClick={() => {
+                      dispatch(logout());
+                      // dispatch(logoutProductState());
+                      // dispatch(logoutCartState());
+                      // dispatch(logoutOrderState());
+                      switchNavState();
+                    }}
+                  >
+                    Se déconnecter
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
+                  onClick={switchNavState}
+                >
+                  Se connecter / S'inscrire
+                </Link>
+              )}
             </nav>
           </div>
         </nav>
