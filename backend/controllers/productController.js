@@ -28,15 +28,15 @@ const newProduct = asyncHandler(async (req, res) => {
 
 // Create
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, price, description } = req.body;
+  const { productName, price, description } = req.body;
 
   /* This is a validation to check if the user has provided all the fields. */
-  if (!name || !price || !description) {
+  if (!productName || !price || !description) {
     res.status(400).json({ error: 'Please provide all fields' });
   }
 
   /* Creating a new product with the information provided by the user. */
-  const product = await Product.create({ name, price, description });
+  const product = await Product.create({ productName, price, description });
 
   res.status(201).json({
     end_point: 'Create product',

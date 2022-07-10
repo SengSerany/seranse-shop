@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { register, login } from '../../features/auth/authSlice';
-import { toast } from 'react-toastify';
 import Spinner from '../../components/layout/Spinner';
 
 function AuthForm() {
@@ -116,7 +115,7 @@ function AuthForm() {
         style={submitButtonStyle}
       >
         {pageTitle}
-        <i class="fa-solid fa-chevron-right"></i>
+        <i className="fa-solid fa-chevron-right"></i>
       </button>
     </form>
   );
