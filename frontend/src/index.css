@@ -66,6 +66,12 @@ p {
   font-weight: 400;
 }
 
+/* Reset links */
+a {
+  text-decoration: none;
+  color: hsl(var(--clr-black));
+}
+
 /* Set up body */
 body {
   font-family: var(--ff-secondary);

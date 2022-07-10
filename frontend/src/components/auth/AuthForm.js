@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { register } from '../../features/auth/authSlice';
-import { FaChevronRight } from 'react-icons/fa';
+import { register, login } from '../../features/auth/authSlice';
+import { toast } from 'react-toastify';
+import Spinner from '../../components/layout/Spinner';
 
 function AuthForm() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { isLoading } = useSelector((state) => state.auth);
+  const [pageTitle] = useState(
+    location.pathname === '/register' ? 'Inscription' : 'Connection'
+  );
   const [dataForm, setDataForm] = useState({
     username: '',
     email: '',
@@ -35,23 +39,38 @@ function AuthForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(dataForm));
+    if (location.pathname === '/register') {
+      dispatch(register(dataForm));
+    } else if (location.pathname === '/login') {
+      const data = {
+        email,
+        password,
+      };
+      dispatch(login(data));
+    }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <form className="form-group" onSubmit={handleSubmit}>
-      <div className="form-fields">
-        <label className="ff-primary">Nom d'utilisateur</label>
-        <input
-          type="text"
-          className="form-control"
-          id="inputUsername"
-          name="username"
-          value={username}
-          aria-describedby="usernameHelp"
-          onChange={handleChange}
-        />
-      </div>
+      {location.pathname === '/register' && (
+        <div className="form-fields">
+          <label className="ff-primary">Nom d'utilisateur</label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputUsername"
+            name="username"
+            value={username}
+            aria-describedby="usernameHelp"
+            onChange={handleChange}
+            required
+          />
+        </div>
+      )}
       <div className="form-fields">
         <label className="ff-primary">Adresse email</label>
         <input
@@ -62,6 +81,7 @@ function AuthForm() {
           value={email}
           aria-describedby="emailHelp"
           onChange={handleChange}
+          required
         />
       </div>
       <div className="form-fields">
@@ -73,25 +93,30 @@ function AuthForm() {
           name="password"
           value={password}
           onChange={handleChange}
+          required
         />
       </div>
-      <div className="form-fields">
-        <label className="ff-primary">Confirmation du mot de passe</label>
-        <input
-          type="password"
-          className="form-control"
-          name="passwordConfirm"
-          value={passwordConfirm}
-          id="inputPasswordConfirm"
-          onChange={handleChange}
-        />
-      </div>
+      {location.pathname === '/register' && (
+        <div className="form-fields">
+          <label className="ff-primary">Confirmation du mot de passe</label>
+          <input
+            type="password"
+            className="form-control"
+            name="passwordConfirm"
+            value={passwordConfirm}
+            id="inputPasswordConfirm"
+            onChange={handleChange}
+            required
+          />
+        </div>
+      )}
       <button
         type="submit"
         className="flex cta cta-small ff-primary fs-400 text-white bg-strong_blue uppercase text-center"
         style={submitButtonStyle}
       >
-        S'inscrire <FaChevronRight />
+        {pageTitle}
+        <i class="fa-solid fa-chevron-right"></i>
       </button>
     </form>
   );

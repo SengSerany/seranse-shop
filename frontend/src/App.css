@@ -210,6 +210,10 @@
   text-shadow: -4px 4px 0px hsl(var(--clr-red) / 1);
 }
 
+.subheading-link:hover {
+  font-weight: 600;
+}
+
 /* ---------------------------- */
 /* Components                   */
 /* ---------------------------- */
@@ -228,6 +232,7 @@
 
 .cta i {
   font-size: calc(100% + 10px);
+  margin-left: -5px;
 }
 
 .cta span {
@@ -346,6 +351,11 @@ button.menu-closebtn {
   .overlay-content > *:not(:last-child) {
     margin-bottom: 4vh;
   }
+}
+
+#menu nav button.btn-logout {
+  background-color: hsl(var(--clr-white) / 0);
+  border: none;
 }
 /* Ending navigation */
 
@@ -591,3 +601,47 @@ ul.list li a:focus span {
   background-color: hsl(var(--clr-light_blue) / 0.5);
 }
 /* Ending form */
+
+/* Starting Spinner */
+.spinner {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin-inline: auto;
+  background: hsl(var(--clr-red));
+  transform: rotateX(65deg) rotate(45deg);
+  /* remove bellows command for perspective change */
+  /* transform: perspective(200px) rotateX(65deg) rotate(45deg);  */
+  color: #fff;
+  animation: layers1 1s linear infinite alternate;
+}
+.spinner:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--clr-strong_blue) / 0.7);
+  animation: layerTr 1s linear infinite alternate;
+}
+
+@keyframes layers1 {
+  0% {
+    box-shadow: 0px 0px 0 0px;
+  }
+  90%,
+  100% {
+    box-shadow: 20px 20px 0 -4px;
+  }
+}
+@keyframes layerTr {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-25px, -25px) scale(1);
+  }
+}
+
+.spinner-space {
+  height: 30vh;
+}
+/* Ending Spinner */

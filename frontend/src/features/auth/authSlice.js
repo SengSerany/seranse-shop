@@ -51,22 +51,22 @@ export const register = createAsyncThunk(
 );
 
 // Login
-// export const login = createAsyncThunk(
-//   'auth/login',
-//   async (userData, thunkAPI) => {
-//     try {
-//       return await authService.login(userData);
-//     } catch (error) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
+export const login = createAsyncThunk(
+  'auth/login',
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.login(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 // Retrieve user
 // export const retrieveUser = createAsyncThunk(
@@ -126,28 +126,28 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = {
+          id: action.payload.user._id,
+          username: action.payload.user.username,
+          email: action.payload.user.email,
+        };
+        state.message = `Tu es bien connecté ${action.payload.user.username}`;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
-    //   .addCase(login.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(login.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isSuccess = true;
-    //     state.user = {
-    //       id: action.payload.user._id,
-    //       username: action.payload.user.username,
-    //       email: action.payload.user.email,
-    //     };
-    //     state.message = `tu es bien connecté ${action.payload.user.username}`;
-    //   })
-    //   .addCase(login.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isError = true;
-    //     state.message = action.payload;
-    //   })
-    //   .addCase(retrieveUser.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
+    // .addCase(retrieveUser.pending, (state) => {
+    //   state.isLoading = true;
+    // })
     //   .addCase(retrieveUser.fulfilled, (state, action) => {
     //     state.isLoading = false;
     //     state.user = {

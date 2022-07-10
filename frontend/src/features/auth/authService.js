@@ -9,10 +9,10 @@ const register = async (userData) => {
 };
 
 // Login
-// const login = async (userData) => {
-//   const response = await axios.post(`${API_URL}/login`, userData);
-//   return response.data;
-// };
+const login = async (userData) => {
+  const response = await axios.post(`${API_URL}/login`, userData);
+  return response.data;
+};
 
 // Get user
 // const getUser = async () => {
@@ -28,7 +28,7 @@ const register = async (userData) => {
 
 const authService = {
   register,
-  //   login,
+  login,
   //   getUser,
   //   logout,
 };
