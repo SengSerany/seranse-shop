@@ -334,6 +334,7 @@ button:focus {
 .button-type {
   width: var(--btn-width, auto);
   height: auto;
+  border: none;
   border-radius: 5px;
   padding: 0.6rem 0.4rem 0.4rem 0.4rem;
   box-shadow: -4px 4px 0px hsl(var(--clr-black));

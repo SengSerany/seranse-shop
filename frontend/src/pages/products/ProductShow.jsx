@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { deleteProduct } from '../../features/product/productSlice';
 
 function ProductShow() {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const { products } = useSelector((state) => state.product);
   const { user } = useSelector((state) => state.auth);
   const currentProduct = products.find((product) => product._id === id);
@@ -21,7 +23,7 @@ function ProductShow() {
   return (
     <div className="product-show-page flex-column justify-content-center">
       <h1 className="uppercase ff-primary fs-700 text-center">
-        {currentProduct.productName}
+        {currentProduct && currentProduct.productName}
       </h1>
       {user.id !== null && (
         <div className="flex justify-content-center">
@@ -32,18 +34,20 @@ function ProductShow() {
           >
             Modifier le produit
           </Link>
-          <Link
-            to={`/products/${id}/edit`}
+          <button
             className="button-type bg-red text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
+            onClick={() => {
+              dispatch(deleteProduct(id));
+            }}
             style={createProductButtonStyle2}
           >
             Supprimer le produit
-          </Link>
+          </button>
         </div>
       )}
-      <p>{currentProduct.description}</p>
+      <p>{currentProduct && currentProduct.description}</p>
       <p className="uppercase ff-sans_cond fs-400 fw-semi_bold">
-        {currentProduct.price}€
+        {currentProduct && currentProduct.price}€
       </p>
     </div>
   );

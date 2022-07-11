@@ -60,22 +60,22 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
-// export const deleteProduct = createAsyncThunk(
-//   'product/delete',
-//   async (productID, thunkAPI) => {
-//     try {
-//       return await productService.deleteProducts(productID);
-//     } catch (error) {
-//       const productMessage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.productMessage) ||
-//         error.productMessage ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(productMessage);
-//     }
-//   }
-// );
+export const deleteProduct = createAsyncThunk(
+  'product/delete',
+  async (productID, thunkAPI) => {
+    try {
+      return await productService.deleteProducts(productID);
+    } catch (error) {
+      const productMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.productMessage) ||
+        error.productMessage ||
+        error.toString();
+      return thunkAPI.rejectWithValue(productMessage);
+    }
+  }
+);
 
 export const productSlice = createSlice({
   name: 'product',
@@ -87,7 +87,6 @@ export const productSlice = createSlice({
       state.productLoading = false;
       state.productMessage = '';
     },
-    logoutProductState: () => initialState,
   },
   extraReducers: (builder) =>
     builder
@@ -109,9 +108,8 @@ export const productSlice = createSlice({
       .addCase(createProduct.fulfilled, (state, action) => {
         state.productLoading = false;
         state.productSuccess = true;
-        console.log(action.payload);
         state.products.push(action.payload.data);
-        state.productMessage = `Tu as crée le plat "${action.payload.data.productName}"`;
+        state.productMessage = `Tu as crée le produit "${action.payload.data.productName}"`;
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.productLoading = false;
@@ -131,29 +129,29 @@ export const productSlice = createSlice({
             return product;
           }
         });
-        state.productMessage = `Tu as modifié le plat "${action.payload.data.productName}"`;
+        state.productMessage = `Tu as modifié le produit "${action.payload.data.productName}"`;
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.productLoading = false;
         state.productError = true;
         state.productMessage = action.payload;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.productLoading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.productLoading = false;
+        state.productSuccess = true;
+        state.products = state.products.filter(
+          (products) => products._id !== action.payload.data._id
+        );
+        state.productMessage = `Tu as supprimer le produit "${action.payload.data.productName}"`;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.productLoading = false;
+        state.productError = true;
+        state.productMessage = action.payload;
       }),
-  //   .addCase(deleteProduct.pending, (state) => {
-  //     state.productLoading = true;
-  //   })
-  //   .addCase(deleteProduct.fulfilled, (state, action) => {
-  //     state.productLoading = false;
-  //     state.productSuccess = true;
-  //     state.products = state.products.filter(
-  //       (products) => products._id !== action.payload.id
-  //     );
-  //     state.productMessage = `Tu as supprimer le plat "${action.payload.name}"`;
-  //   })
-  //   .addCase(deleteProduct.rejected, (state, action) => {
-  //     state.productLoading = false;
-  //     state.productError = true;
-  //     state.productMessage = action.payload;
-  //   }),
 });
 
 export const { resetProductState, logoutProductState } = productSlice.actions;
