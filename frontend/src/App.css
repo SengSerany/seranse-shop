@@ -5,3 +5,20 @@
 .product-show-page {
   margin-inline: 15rem;
 }
+
+.box-img-selected {
+  margin-top: 2rem;
+}
+
+.image-selected {
+  width: auto;
+  max-width: 20rem;
+  height: auto;
+}
+
+.product-img-show {
+  width: auto;
+  max-width: 20rem;
+  height: auto;
+  margin: 2rem auto 1rem auto;
+}

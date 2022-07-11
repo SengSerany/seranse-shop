@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import InfosCharge from './components/layout/InfosCharge';
 import Navigation from './components/layout/Navigation';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
@@ -19,6 +20,7 @@ function App() {
   return (
     <>
       <Router>
+        <InfosCharge />
         <Navigation />
         <AuthToasts />
         <ProductToasts />

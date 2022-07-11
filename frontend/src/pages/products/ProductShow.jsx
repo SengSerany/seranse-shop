@@ -21,7 +21,7 @@ function ProductShow() {
   };
 
   return (
-    <div className="product-show-page flex-column justify-content-center">
+    <div className="product-show-page flex-column justify-content-center text-center">
       <h1 className="uppercase ff-primary fs-700 text-center">
         {currentProduct && currentProduct.productName}
       </h1>
@@ -45,6 +45,13 @@ function ProductShow() {
           </button>
         </div>
       )}
+      <a href={currentProduct ? currentProduct.image : '#'}>
+        <img
+          src={currentProduct && currentProduct.image}
+          alt="product"
+          className="product-img-show"
+        />
+      </a>
       <p>{currentProduct && currentProduct.description}</p>
       <p className="uppercase ff-sans_cond fs-400 fw-semi_bold">
         {currentProduct && currentProduct.price}€

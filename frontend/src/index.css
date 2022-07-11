@@ -796,12 +796,19 @@ ul.list li a:focus span {
 
 /* Starting Index Card */
 .index-card {
-  border: hsl(var(--clr-black)) 1px solid;
   padding: 1rem;
   width: 20rem;
 }
 
 .index-card_description {
   margin: 0.5rem 0;
+}
+
+.index-card_image {
+  width: 100%;
+  height: auto;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: hsl(var(--clr-brown) / 0.5) 0.5px solid;
 }
 /* Ending Index Card */
