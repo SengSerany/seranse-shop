@@ -6,6 +6,7 @@ import Spinner from '../../components/layout/Spinner';
 
 function ProductsIndex() {
   const { products, productLoading } = useSelector((state) => state.product);
+  const { user } = useSelector((state) => state.auth);
   const createProductButtonStyle = {
     '--btn-width': '16rem',
     margin: 'auto',
@@ -20,15 +21,17 @@ function ProductsIndex() {
       <InfosCharge />
       <div className="flex-column justify-content-center">
         <h1 className="uppercase ff-primary fs-700 text-center">
-          Les produits
+          Seranse shop
         </h1>
-        <Link
-          to="/products/new"
-          className="button-type bg-strong_blue text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
-          style={createProductButtonStyle}
-        >
-          Ajouter un produit
-        </Link>
+        {user.id !== null && (
+          <Link
+            to="/products/new"
+            className="button-type bg-strong_blue text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
+            style={createProductButtonStyle}
+          >
+            Ajouter un produit
+          </Link>
+        )}
 
         {products === null ? <Spinner /> : null}
 

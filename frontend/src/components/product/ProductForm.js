@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { createProduct } from '../../features/product/productSlice';
+import { useLocation, useParams } from 'react-router-dom';
+import {
+  createProduct,
+  updateProduct,
+} from '../../features/product/productSlice';
 import Spinner from '../layout/Spinner';
 
-function ProductForm() {
+function ProductForm({ product = null }) {
+  const params = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
   const { productLoading } = useSelector((state) => state.product);
@@ -12,9 +16,9 @@ function ProductForm() {
     location.pathname.endsWith('new') ? 'Créer' : 'Modifier'
   );
   const [dataForm, setDataForm] = useState({
-    productName: '',
-    price: '',
-    description: '',
+    productName: location.pathname.endsWith('new') ? '' : product.productName,
+    price: location.pathname.endsWith('new') ? '' : product.price,
+    description: location.pathname.endsWith('new') ? '' : product.description,
   });
   const { productName, price, description } = dataForm;
 
@@ -23,7 +27,7 @@ function ProductForm() {
     '--pad-left_right': '30px',
     '--cta_margin_custom': 'auto',
     '--clr-cta_shadow_custom': 'var(--clr-red)',
-    paddingLeft: '48px',
+    paddingLeft: location.pathname.endsWith('new') ? '48px' : '35px',
   };
 
   const handleChange = (e) => {
@@ -46,12 +50,13 @@ function ProductForm() {
       };
       dispatch(createProduct(data));
     } else if (location.pathname.endsWith('edit')) {
-      //   const data = {
-      //     productName,
-      //     price,
-      //     description,
-      //   };
-      //   dispatch(updateProduct(data));
+      const data = {
+        productName,
+        price: parseInt(price),
+        description,
+        productId: params.id,
+      };
+      dispatch(updateProduct(data));
     }
   };
 

@@ -1,3 +1,7 @@
 .products-board {
   margin: 2rem 0;
 }
+
+.product-show-page {
+  margin-inline: 15rem;
+}

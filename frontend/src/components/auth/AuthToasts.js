@@ -12,11 +12,6 @@ function AuthToasts() {
     (state) => state.auth
   );
   useEffect(() => {
-    if (user.id === null) {
-      if (location.pathname !== '/register' && location.pathname !== '/login')
-        navigate('/login');
-    }
-
     if (isError) {
       toast.error(message);
     }

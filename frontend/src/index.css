@@ -336,11 +336,12 @@ button:focus {
   height: auto;
   border-radius: 5px;
   padding: 0.6rem 0.4rem 0.4rem 0.4rem;
+  box-shadow: -4px 4px 0px hsl(var(--clr-black));
 }
 
 .button-type:hover {
   cursor: pointer;
-  box-shadow: -4px 4px 0px hsl(var(--clr-red) / 1);
+  box-shadow: -4px 4px 0px hsl(var(--btn-shadow-clr-custom, var(--clr-red)));
 }
 
 /* ---------------------------- */

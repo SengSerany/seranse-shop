@@ -17,7 +17,7 @@ function ProductToasts() {
     }
 
     if (productSuccess) {
-      navigate('/products');
+      navigate('/');
       toast.success(productMessage);
     }
 

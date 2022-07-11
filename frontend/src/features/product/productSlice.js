@@ -43,22 +43,22 @@ export const createProduct = createAsyncThunk(
   }
 );
 
-// export const updateProduct = createAsyncThunk(
-//   'product/update',
-//   async (productData, thunkAPI) => {
-//     try {
-//       return await productService.updateProducts(productData);
-//     } catch (error) {
-//       const productMessage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.productMessage) ||
-//         error.productMessage ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(productMessage);
-//     }
-//   }
-// );
+export const updateProduct = createAsyncThunk(
+  'product/update',
+  async (productData, thunkAPI) => {
+    try {
+      return await productService.updateProducts(productData);
+    } catch (error) {
+      const productMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.productMessage) ||
+        error.productMessage ||
+        error.toString();
+      return thunkAPI.rejectWithValue(productMessage);
+    }
+  }
+);
 
 // export const deleteProduct = createAsyncThunk(
 //   'product/delete',
@@ -117,27 +117,27 @@ export const productSlice = createSlice({
         state.productLoading = false;
         state.productError = true;
         state.productMessage = action.payload;
+      })
+      .addCase(updateProduct.pending, (state) => {
+        state.productLoading = true;
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.productLoading = false;
+        state.productSuccess = true;
+        state.products = state.products.map((product) => {
+          if (product._id === action.payload.data._id) {
+            return action.payload.data;
+          } else {
+            return product;
+          }
+        });
+        state.productMessage = `Tu as modifié le plat "${action.payload.data.productName}"`;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.productLoading = false;
+        state.productError = true;
+        state.productMessage = action.payload;
       }),
-  //   .addCase(updateProduct.pending, (state) => {
-  //     state.productLoading = true;
-  //   })
-  //   .addCase(updateProduct.fulfilled, (state, action) => {
-  //     state.productLoading = false;
-  //     state.productSuccess = true;
-  //     state.products = state.products.map((product) => {
-  //       if (product._id === action.payload.updatedProduct._id) {
-  //         return action.payload.updatedProduct;
-  //       } else {
-  //         return product;
-  //       }
-  //     });
-  //     state.productMessage = `Tu as modifié le plat "${action.payload.updatedProduct.name}"`;
-  //   })
-  //   .addCase(updateProduct.rejected, (state, action) => {
-  //     state.productLoading = false;
-  //     state.productError = true;
-  //     state.productMessage = action.payload;
-  //   })
   //   .addCase(deleteProduct.pending, (state) => {
   //     state.productLoading = true;
   //   })

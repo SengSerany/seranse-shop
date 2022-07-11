@@ -9,6 +9,8 @@ import About from './pages/about/About';
 import AuthToasts from './components/auth/AuthToasts';
 import ProductsIndex from './pages/products/ProductsIndex';
 import ProductNew from './pages/products/ProductNew';
+import ProductShow from './pages/products/ProductShow';
+import ProductEdit from './pages/products/ProductEdit';
 import ProductToasts from './components/product/ProductToast';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -27,6 +29,8 @@ function App() {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/products/new" element={<ProductNew />} />
+            <Route exact path="/products/:id/edit" element={<ProductEdit />} />
+            <Route exact path="/products/:id" element={<ProductShow />} />
             <Route exact path="/" element={<ProductsIndex />} />
           </Routes>
         </div>

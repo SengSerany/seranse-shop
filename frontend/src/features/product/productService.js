@@ -14,14 +14,14 @@ const createNewProducts = async (productData) => {
   return response.data;
 };
 
-// // Update product
-// const updateProducts = async (productData) => {
-//   const response = await axios.patch(
-//     `${API_URL}/${productData.productId}/edit`,
-//     productData
-//   );
-//   return response.data;
-// };
+// Update product
+const updateProducts = async (productData) => {
+  const response = await axios.patch(
+    `${API_URL}/${productData.productId}/edit`,
+    productData
+  );
+  return response.data;
+};
 
 // // Delete product
 // const deleteProducts = async (productID) => {
@@ -32,7 +32,7 @@ const createNewProducts = async (productData) => {
 const productService = {
   getAllProducts,
   createNewProducts,
-  //   updateProducts,
+  updateProducts,
   //   deleteProducts,
 };
 
