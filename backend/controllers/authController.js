@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Auth = require('../models/authModel');
+const Cart = require('../models/cartModel');
 
 // New user account
 const newAuthAccount = asyncHandler(async (req, res) => {
@@ -33,18 +34,20 @@ const createAuthAccount = asyncHandler(async (req, res) => {
   await Auth.register(
     new Auth({ username, email }),
     req.body.password,
-    (err, user) => {
+    async (err, user) => {
       if (err) {
         console.log('error while user register!', err);
         res.status(400);
         throw new Error('Your account could not be saved');
       } else {
+        const userCart = await Cart.create({ user: user._id });
         res.status(200).json({
           end_point: 'Register user',
           user: {
             id: user._id,
             username: user.username,
             email: user.email,
+            cart: userCart._id,
           },
         });
       }
