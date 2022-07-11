@@ -7,6 +7,7 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const cors = require('cors');
 
 const Auth = require('./models/authModel');
 
@@ -20,9 +21,10 @@ const productRouter = require('./routes/productRoutes');
 const authRouter = require('./routes/authRoutes');
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(cookieParser(process.env.COOKIE_KEY));
+app.use(cors());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
