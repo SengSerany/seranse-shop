@@ -3,7 +3,7 @@ import cartService from './cartService';
 
 const initialState = {
   cart: null,
-  productsInCart: [],
+  productsInCart: null,
   cartError: false,
   cartSuccess: false,
   cartLoading: false,
@@ -24,39 +24,22 @@ export const getMyCart = createAsyncThunk('cart/get', async (_, thunkAPI) => {
   }
 });
 
-// export const addInCart = createAsyncThunk(
-//   'cart/prodAdd',
-//   async (linkObj, thunkAPI) => {
-//     try {
-//       return await cartService.addProduct(linkObj);
-//     } catch (error) {
-//       const cartMessage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.cartMessage) ||
-//         error.cartMessage ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(cartMessage);
-//     }
-//   }
-// );
-
-// export const removeFromCart = createAsyncThunk(
-//   'cart/prodDelete',
-//   async (linkID, thunkAPI) => {
-//     try {
-//       return await cartService.removeProduct(linkID);
-//     } catch (error) {
-//       const cartMessage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.cartMessage) ||
-//         error.cartMessage ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(cartMessage);
-//     }
-//   }
-// );
+export const changeInCart = createAsyncThunk(
+  'cart/change',
+  async (linkObj, thunkAPI) => {
+    try {
+      return await cartService.changeProduct(linkObj);
+    } catch (error) {
+      const cartMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.cartMessage) ||
+        error.cartMessage ||
+        error.toString();
+      return thunkAPI.rejectWithValue(cartMessage);
+    }
+  }
+);
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -75,7 +58,7 @@ export const cartSlice = createSlice({
       state.cartLoading = false;
       state.cartMessage = '';
     },
-    logoutDishState: () => initialState,
+    logoutCartState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -87,52 +70,51 @@ export const cartSlice = createSlice({
         state.cartError = false;
         state.cartSuccess = true;
         state.cart = action.payload.cart;
-        state.productsInCart = action.payload.products;
+        state.productsInCart = action.payload.data ? action.payload.data : [];
       })
       .addCase(getMyCart.rejected, (state, action) => {
         state.cartLoading = false;
         state.cartError = true;
         state.cartSuccess = true;
         state.cartMessage = action.payload;
+      })
+      .addCase(changeInCart.pending, (state) => {
+        state.cartLoading = true;
+      })
+      .addCase(changeInCart.fulfilled, (state, action) => {
+        state.cartLoading = false;
+        state.cartError = false;
+        if (action.payload.data.quantity === 0) {
+          state.productsInCart = state.productsInCart.filter(
+            (productInCart) => productInCart._id !== action.payload.data._id
+          );
+        } else if (action.payload.data.quantity > 0) {
+          if (
+            state.productsInCart.find(
+              (productInCart) => productInCart._id === action.payload.data._id
+            )
+          ) {
+            state.productsInCart = state.productsInCart.map((productInCart) => {
+              if (productInCart._id === action.payload.data._id) {
+                return action.payload.data;
+              }
+              return productInCart;
+            });
+          } else {
+            state.productsInCart.push(action.payload.data);
+          }
+        }
+      })
+      .addCase(changeInCart.rejected, (state, action) => {
+        state.cartLoading = false;
+        state.cartError = true;
+        state.cartSuccess = false;
+        state.cartMessage = action.payload;
       });
-    //   .addCase(addInCart.pending, (state) => {
-    //     state.cartLoading = true;
-    //   })
-    //   .addCase(addInCart.fulfilled, (state, action) => {
-    //     state.cartLoading = false;
-    //     state.cartError = false;
-    //     state.cartSuccess = true;
-    //     state.cartMessage = `You have succefully add "${action.payload.title}" to your cart`;
-    //     state.productsInCart.push(action.payload.link);
-    //   })
-    //   .addCase(addInCart.rejected, (state, action) => {
-    //     state.cartLoading = false;
-    //     state.cartError = true;
-    //     state.cartSuccess = false;
-    //     state.cartMessage = action.payload;
-    //   })
-    //   .addCase(removeFromCart.pending, (state) => {
-    //     state.cartLoading = true;
-    //   })
-    //   .addCase(removeFromCart.fulfilled, (state, action) => {
-    //     state.cartLoading = false;
-    //     state.cartError = false;
-    //     state.cartSuccess = true;
-    //     state.cartMessage = `You have remove "${action.payload.title}" to your cart`;
-    //     state.productsInCart = state.productsInCart.filter(
-    //       (product) => product._id !== action.payload.id
-    //     );
-    //   })
-    //   .addCase(removeFromCart.rejected, (state, action) => {
-    //     state.cartLoading = false;
-    //     state.cartError = true;
-    //     state.cartSuccess = false;
-    //     state.cartMessage = action.payload;
-    //   });
   },
 });
 
-export const { validateCart, resetCartState, logoutDishState } =
+export const { validateCart, resetCartState, logoutCartState } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

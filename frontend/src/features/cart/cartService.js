@@ -6,26 +6,14 @@ const getCart = async () => {
   return data;
 };
 
-// const addProduct = async (linkObj) => {
-//   const response = await axios.post(`/api/v1/products/cart/add`, linkObj);
-
-//   return response.data;
-// };
-
-// const removeProduct = async (linkID) => {
-//   const response = await axios.delete(`/api/v1/products/cart/sub`, {
-//     data: {
-//       linkID: linkID,
-//     },
-//   });
-
-//   return response.data;
-// };
+const changeProduct = async (linkObj) => {
+  const response = await axios.post(`/api/v1/products/cart/update`, linkObj);
+  return response.data;
+};
 
 const cartService = {
   getCart,
-  //   removeProduct,
-  //   addProduct,
+  changeProduct,
 };
 
 export default cartService;

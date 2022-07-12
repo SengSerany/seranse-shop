@@ -1,17 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../../features/auth/authSlice';
+import { logoutCartState } from '../../features/cart/cartSlice';
+import { CgShoppingCart } from 'react-icons/cg';
 
 function Navigation() {
+  const location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { productsInCart } = useSelector((state) => state.cart);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [cartQuantity, setCartQuantity] = useState(0);
+
+  const calculateCartQuantity = () => {
+    let cartQuantity = 0;
+    if (productsInCart) {
+      productsInCart.forEach((product) => {
+        cartQuantity += product.quantity;
+      });
+    }
+    setCartQuantity(cartQuantity);
+  };
+
   const switchNavState = () => {
     setMenuIsOpen(!menuIsOpen);
   };
+
+  useEffect(
+    () => {
+      calculateCartQuantity();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [productsInCart]
+  );
+
   return (
-    <div>
+    <div className="flex-column">
       <div id="menu">
         <nav className="flex-column title-state-indicator">
           <i
@@ -62,8 +87,7 @@ function Navigation() {
                     className="menu-btn btn-logout uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
                     onClick={() => {
                       dispatch(logout());
-                      // dispatch(logoutProductState());
-                      // dispatch(logoutCartState());
+                      dispatch(logoutCartState());
                       // dispatch(logoutOrderState());
                       switchNavState();
                     }}
@@ -84,6 +108,14 @@ function Navigation() {
           </div>
         </nav>
       </div>
+      {location.pathname !== '/cart' && user.id !== null ? (
+        <Link to="/cart" className="flex container logo-cart">
+          <CgShoppingCart />
+          <span className="circle ff-primary fs-200 fw-semi_bold">
+            {cartQuantity}
+          </span>
+        </Link>
+      ) : null}
     </div>
   );
 }
