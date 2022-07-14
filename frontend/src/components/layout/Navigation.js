@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../../features/auth/authSlice';
 import { logoutCartState } from '../../features/cart/cartSlice';
 import { CgShoppingCart } from 'react-icons/cg';
+import { BsFillInboxesFill } from 'react-icons/bs';
 
 function Navigation() {
   const location = useLocation();
@@ -109,12 +110,17 @@ function Navigation() {
         </nav>
       </div>
       {location.pathname !== '/cart' && user.id !== null ? (
-        <Link to="/cart" className="flex container logo-cart">
-          <CgShoppingCart />
-          <span className="circle ff-primary fs-200 fw-semi_bold">
-            {cartQuantity}
-          </span>
-        </Link>
+        <div className="subheader">
+          <Link to="/cart" className="flex subheader-logo">
+            <CgShoppingCart />
+            <span className="circle ff-primary fs-200 fw-semi_bold">
+              {cartQuantity}
+            </span>
+          </Link>
+          <Link to="/order" className="subheader-logo sublogo-2">
+            <BsFillInboxesFill />
+          </Link>
+        </div>
       ) : null}
     </div>
   );

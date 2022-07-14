@@ -815,12 +815,10 @@ ul.list li a:focus span {
 
 /* Begining Product In Cart Card */
 .product-cart-card {
-  width: 30rem;
-  border: #f1f1f1 0.5px solid;
+  margin-top: 1rem;
   padding: 1rem;
-  margin: 2rem auto 1rem auto;
+  border: hsl(var(--clr-black) / 0.1) 0.5px solid;
 }
-
 .product-cart-card_title {
   display: flex;
   justify-content: space-between;
@@ -860,7 +858,7 @@ ul.list li a:focus span {
   }
 
   .cart-quantity-btn {
-    font-size: var(--fs-700);
+    font-size: calc(var(--fs-600) + 0.5rem);
   }
 
   .cart-quantity-number {
@@ -872,3 +870,21 @@ ul.list li a:focus span {
   }
 }
 /* Ending Product In Cart Card */
+
+/* Starting Cart Section */
+.cart-section {
+  padding: 1rem;
+  width: 50%;
+  margin: auto;
+}
+.cart-section:is(:first-child) {
+  margin-top: 2rem;
+}
+
+@media (max-width: 850px) {
+  .cart-section {
+    padding: 1rem;
+    width: 100%;
+  }
+}
+/* Ending Cart Section */
