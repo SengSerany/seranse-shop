@@ -48,7 +48,7 @@ function ProductShow() {
 
   return (
     <div className="product-show-page flex-column justify-content-center text-center">
-      <h1 className="uppercase ff-primary fs-700 text-center">
+      <h1 className="h1-title uppercase ff-primary fs-700 text-center">
         {currentProduct && currentProduct.productName}
       </h1>
       {user.id !== null && (

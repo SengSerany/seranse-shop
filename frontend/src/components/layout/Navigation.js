@@ -11,8 +11,10 @@ function Navigation() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { productsInCart } = useSelector((state) => state.cart);
+  const { orders } = useSelector((state) => state.order);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [cartQuantity, setCartQuantity] = useState(0);
+  const [orderQuantity, setOrderQuantity] = useState(0);
 
   const calculateCartQuantity = () => {
     let cartQuantity = 0;
@@ -24,6 +26,18 @@ function Navigation() {
     setCartQuantity(cartQuantity);
   };
 
+  const calculateOrderQuantity = () => {
+    let orderQuantity = 0;
+    if (orders) {
+      orders.forEach((order) => {
+        if (order.state !== 'Livré') {
+          orderQuantity += 1;
+        }
+      });
+    }
+    setOrderQuantity(orderQuantity);
+  };
+
   const switchNavState = () => {
     setMenuIsOpen(!menuIsOpen);
   };
@@ -31,9 +45,10 @@ function Navigation() {
   useEffect(
     () => {
       calculateCartQuantity();
+      calculateOrderQuantity();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [productsInCart]
+    [productsInCart, orders]
   );
 
   return (
@@ -73,7 +88,7 @@ function Navigation() {
                 className="menu-btn uppercase text-white ff-primary fs-700 letter-spacing-1 title-hover-effect"
                 onClick={switchNavState}
               >
-                à propos du site
+                à propos du shop
               </Link>
               {user.id !== null ? (
                 <>
@@ -113,13 +128,16 @@ function Navigation() {
         <div className="subheader">
           <Link to="/cart" className="flex subheader-logo">
             <CgShoppingCart />
-            <span className="circle ff-primary fs-200 fw-semi_bold">
+            <span className="circle circle1 ff-primary fs-200 fw-semi_bold">
               {cartQuantity}
             </span>
           </Link>
-          <Link to="/order" className="subheader-logo sublogo-2">
+          <Link to="/admin/orders" className="flex subheader-logo sublogo-2">
             <BsFillInboxesFill />
           </Link>
+          <span className="circle circle2 ff-primary fs-200 fw-semi_bold">
+            {orderQuantity}
+          </span>
         </div>
       ) : null}
     </div>

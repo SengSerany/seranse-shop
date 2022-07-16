@@ -8,6 +8,7 @@ function ProductsIndex() {
   const { user } = useSelector((state) => state.auth);
   const createProductButtonStyle = {
     '--btn-width': '16rem',
+    '--btn-shadow-clr-custom': 'var(--clr-strong_blue)',
     margin: 'auto',
   };
 
@@ -17,11 +18,13 @@ function ProductsIndex() {
 
   return (
     <div className="flex-column justify-content-center">
-      <h1 className="uppercase ff-primary fs-700 text-center">Seranse shop</h1>
+      <h1 className="h1-title uppercase ff-primary fs-700 text-center">
+        Seranse shop
+      </h1>
       {user.id !== null && (
         <Link
           to="/products/new"
-          className="button-type bg-strong_blue text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
+          className="button-type bg-red text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
           style={createProductButtonStyle}
         >
           Ajouter un produit

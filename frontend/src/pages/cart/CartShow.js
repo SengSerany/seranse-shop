@@ -35,12 +35,16 @@ function CartShow() {
 
   return (
     <div>
-      <h1 className="uppercase ff-primary fs-700 text-center text-red">
+      <h1 className="h1-title uppercase ff-primary fs-700 text-center">
         Mon panier
       </h1>
       <div className="cart-show">
         <section className="cart-section cart-index_product_in_cart">
-          <h2 className="uppercase ff-primary fs-600">Produits selectionnés</h2>
+          {productsInCart && productsInCart.length > 0 && (
+            <h2 className="uppercase ff-primary fs-600">
+              Produits selectionnés
+            </h2>
+          )}
           {productsInCart ? (
             productsInCart.length > 0 ? (
               productsInCart.map((linkProduct) => {
@@ -61,19 +65,23 @@ function CartShow() {
             )
           ) : null}
         </section>
-        <section className="cart-section cart-total">
-          <h2 className="uppercase ff-primary fs-600">Total:</h2>
-          <h5 className="ff-primary fs-500">{cartTotal} €</h5>
-        </section>
+        {productsInCart && productsInCart.length > 0 && (
+          <>
+            <section className="cart-section cart-total">
+              <h2 className="uppercase ff-primary fs-600">Total:</h2>
+              <h5 className="ff-primary fs-500">{cartTotal} €</h5>
+            </section>
 
-        <div className="flex justify-content-center">
-          <button
-            className="button-type bg-strong_blue text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
-            style={createProductButtonStyle1}
-          >
-            Commander
-          </button>
-        </div>
+            <div className="flex justify-content-center">
+              <button
+                className="button-type bg-strong_blue text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
+                style={createProductButtonStyle1}
+              >
+                Commander
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

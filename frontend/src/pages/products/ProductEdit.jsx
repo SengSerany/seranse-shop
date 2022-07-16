@@ -13,7 +13,7 @@ function ProductEdit() {
   }
   return (
     <div>
-      <h1 className="uppercase ff-primary fs-700 text-center">
+      <h1 className="h1-title uppercase ff-primary fs-700 text-center">
         Modifier {currentProduct.productName}
       </h1>
       <ProductForm product={currentProduct} />

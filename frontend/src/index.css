@@ -345,6 +345,11 @@ button:focus {
   box-shadow: -4px 4px 0px hsl(var(--btn-shadow-clr-custom, var(--clr-red)));
 }
 
+.h1-title {
+  text-shadow: -0.033em 0 1px hsl(var(--clr-red)),
+    0.033em 0 1px hsl(var(--clr-strong_blue));
+}
+
 /* ---------------------------- */
 /* Components                   */
 /* ---------------------------- */
@@ -715,13 +720,15 @@ ul.list li a:focus span {
   width: auto;
 }
 
-.form-fields input {
+.form-fields input,
+.form-fields select {
   padding: 0.5rem;
   text-align: center;
   border-radius: 5px;
   background-color: hsl(var(--clr-black) / 0.1);
   border: none;
   width: 25rem;
+  padding: auto;
 }
 
 .form-fields input:focus::placeholder {

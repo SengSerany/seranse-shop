@@ -7,7 +7,7 @@ function Login() {
 
   return (
     <div className="flex-column justify-content-center text-center">
-      <h1 className="uppercase ff-primary fs-800">Se connecter</h1>
+      <h1 className="h1-title uppercase ff-primary fs-800">Se connecter</h1>
       <AuthForm />
       {!isLoading && (
         <Link

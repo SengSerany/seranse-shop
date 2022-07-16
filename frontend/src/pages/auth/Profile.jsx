@@ -23,7 +23,7 @@ function Profile() {
 
   return (
     <div className="flex-column text-center">
-      <h1 className="uppercase ff-primary fs-800">Mon compte</h1>
+      <h1 className="h1-title uppercase ff-primary fs-800">Mon compte</h1>
       <h4 className="uppercase ff-primary fs-600">Votre adresse email</h4>
       <p>{user.email}</p>
     </div>
