@@ -34,13 +34,8 @@ function OrderShow() {
     dispatch(updateOrder(data));
   };
 
-  //   const log = () => {
-  //     console.log(orderStatus);
-  //   };
-
   return (
     <div>
-      {/* <button onClick={log}>Log</button> */}
       <h1 className="h1-title uppercase ff-primary fs-700 text-center">
         Commande :
         <br />
@@ -81,7 +76,7 @@ function OrderShow() {
           {currentAdress && (
             <section className="order-adress">
               <p className="ff-sans_cond letter-spacing-2">
-                {currentAdress.adressName}
+                {currentOrder.clientName}
               </p>
               <p className="ff-sans_cond letter-spacing-2">
                 {currentAdress.street}

@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { resetOrderState } from '../../features/order/orderSlice';
 import { toast } from 'react-toastify';
 
 function OrderToasts() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { orderSuccess, orderError, orderMessage } = useSelector(
     (state) => state.order
   );
@@ -17,7 +18,11 @@ function OrderToasts() {
     }
 
     if (orderSuccess) {
-      navigate('/admin/orders');
+      if (location.pathname === '/orders/checkout') {
+        navigate('/orders/success');
+      } else {
+        navigate('/admin/orders');
+      }
       toast.success(orderMessage);
     }
 

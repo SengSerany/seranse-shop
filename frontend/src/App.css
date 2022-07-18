@@ -77,13 +77,18 @@
   margin-bottom: 1rem;
 }
 
+.logo-account {
+  font-size: var(--fs-600);
+  margin-right: 3rem;
+}
+
 .sublogo-2 {
   font-size: var(--fs-500);
   margin-left: 1rem;
 }
 
 .subheader-logo:hover {
-  color: hsl(var(--clr-strong_blue));
+  color: hsl(var(--clr-red));
 }
 
 .cart-total {
@@ -131,12 +136,91 @@
   padding: 1rem 2rem;
 }
 
-.order-show_products {
+.order-form {
+  margin-top: 3rem;
+  display: flex;
+}
+
+.order-form_adress h2 {
+  margin-bottom: 1.5rem;
+}
+
+.order-create_bill_details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.order-create_bill_products {
+  margin-top: 1rem;
+}
+
+.order-form_adress_inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-form_adress_inputs p {
+  margin-bottom: 1rem;
+}
+
+.order-form-registered-adress {
+  background-color: hsl(var(--clr-black) / 0.1);
+  color: hsl(var(--clr-black));
+  margin-top: 1rem;
+  padding: 2rem;
+}
+
+.order-form-registered-adress h5 {
+  margin-bottom: 1rem;
+}
+
+.order-form-registered-adress p {
+  margin: 0;
+}
+
+.order-adress-form {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.order-adress-form label {
+  margin-top: 0.5rem;
+}
+
+.order-form-end_adress {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.order-form-zipcode input {
+  width: 6.5rem !important;
+}
+
+.order-form-city input {
+  width: 17.5rem !important;
+}
+
+.order-form-new-adress {
+  margin-top: 2rem;
+}
+
+.profile-order {
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 500px) {
   .order-index {
     flex-direction: column;
     font-size: calc(100% + 0.5rem);
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .order-form {
+    display: block;
   }
 }

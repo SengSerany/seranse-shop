@@ -27,22 +27,22 @@ export const getIndexOrders = createAsyncThunk(
   }
 );
 
-// export const createNewOrders = createAsyncThunk(
-//   'order/create',
-//   async (formDataOrder, thunkAPI) => {
-//     try {
-//       return await orderService.createOrder(formDataOrder);
-//     } catch (error) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
+export const createNewOrders = createAsyncThunk(
+  'order/create',
+  async (formDataOrder, thunkAPI) => {
+    try {
+      return await orderService.createOrder(formDataOrder);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const updateOrder = createAsyncThunk(
   'order/update',
@@ -90,21 +90,29 @@ const orderSlice = createSlice({
         state.orderSuccess = true;
         state.orderMessage = action.payload;
       })
-      //   .addCase(createNewOrders.pending, (state) => {
-      //     state.orderLoading = true;
-      //   })
-      //   .addCase(createNewOrders.fulfilled, (state, action) => {
-      //     state.orderLoading = false;
-      //     state.orderError = false;
-      //     state.orderSuccess = true;
-      //     state.orders.push(action.payload);
-      //   })
-      //   .addCase(createNewOrders.rejected, (state, action) => {
-      //     state.orderLoading = false;
-      //     state.orderError = true;
-      //     state.orderSuccess = true;
-      //     state.orderMessage = action.payload;
-      //   });
+      .addCase(createNewOrders.pending, (state) => {
+        state.orderLoading = true;
+      })
+      .addCase(createNewOrders.fulfilled, (state, action) => {
+        state.orderLoading = false;
+        state.orderError = false;
+        state.orderSuccess = true;
+        console.log(action.payload);
+        state.orders.push(action.payload.order);
+        const usedAdress = state.adresses.find(
+          (adress) => adress._id === action.payload.adress._id
+        );
+        if (!usedAdress) {
+          state.adresses.push(action.payload.adress);
+        }
+        state.orderMessage = 'Commande validé avec succès';
+      })
+      .addCase(createNewOrders.rejected, (state, action) => {
+        state.orderLoading = false;
+        state.orderError = true;
+        state.orderSuccess = true;
+        state.orderMessage = action.payload;
+      })
       .addCase(updateOrder.pending, (state) => {
         state.orderLoading = true;
       })
@@ -119,14 +127,6 @@ const orderSlice = createSlice({
         newOrders[index].state = action.payload.state;
         state.orders = newOrders;
         state.orderMessage = 'Commande modifiée avec succès';
-        // console.log(state.orders);
-        // state.orders = state.orders.map((order) => {
-        //   if (order._id === action.payload._id) {
-        //     return action.payload.order;
-        //   } else {
-        //     return order;
-        //   }
-        // });
       })
       .addCase(updateOrder.rejected, (state, action) => {
         state.orderLoading = false;

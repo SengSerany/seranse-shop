@@ -23,7 +23,7 @@ const createOrder = asyncHandler(async (req, res) => {
     throw new Error('Not authorized');
   }
 
-  const { adress, products, total } = req.body;
+  const { clientName, adress, products, total } = req.body;
   let newAdress;
 
   /* Checking if the adress already exists in the database. If it does not exist, it creates a new
@@ -33,12 +33,13 @@ const createOrder = asyncHandler(async (req, res) => {
     user: adress.user,
   });
   if (!selectedAdress) {
-    newAdress = await Adress.create(adress);
+    newAdress = await Adress.create({ ...adress, user: req.user.id });
   }
 
   // Create new order
   const newOrder = await Order.create({
     user: req.user.id,
+    clientName: clientName,
     adressID: newAdress ? newAdress._id : selectedAdress._id,
     products,
     total,

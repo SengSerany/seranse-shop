@@ -7,10 +7,10 @@ const getAllorders = async () => {
   return response.data;
 };
 
-// const createOrder = async (formDataOrder) => {
-//   const response = await axios.post(`${API_URL}/create`, formDataOrder);
-//   return response.data;
-// };
+const createOrder = async (formDataOrder) => {
+  const response = await axios.post(`${API_URL}/create`, formDataOrder);
+  return response.data;
+};
 
 const updateOrder = async (orderInfos) => {
   const response = await axios.patch(`${API_URL}/update`, orderInfos);
@@ -19,7 +19,7 @@ const updateOrder = async (orderInfos) => {
 
 const orderService = {
   getAllorders,
-  //   createOrder,
+  createOrder,
   updateOrder,
 };
 

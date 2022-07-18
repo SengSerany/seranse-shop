@@ -700,6 +700,7 @@ ul.list li a:focus span {
 /* Ending list elements */
 
 /* Starting form */
+
 .form-fields {
   display: flex;
   flex-direction: column;

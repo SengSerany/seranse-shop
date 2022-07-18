@@ -14,8 +14,11 @@ import ProductShow from './pages/products/ProductShow';
 import ProductEdit from './pages/products/ProductEdit';
 import ProductToasts from './components/product/ProductToast';
 import CartShow from './pages/cart/CartShow';
+import CartToast from './components/cart/CartToast';
 import OrderIndex from './pages/order/OrderIndex';
+import OrderSuccess from './pages/order/OrderSuccess';
 import OrderShow from './pages/order/OrderShow';
+import OrderCreate from './pages/order/OrderCreate';
 import OrderToasts from './components/order/OrderToast';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -28,6 +31,7 @@ function App() {
         <Navigation />
         <AuthToasts />
         <ProductToasts />
+        <CartToast />
         <OrderToasts />
         <div className="container">
           <Routes>
@@ -39,6 +43,8 @@ function App() {
             <Route exact path="/products/:id/edit" element={<ProductEdit />} />
             <Route exact path="/products/:id" element={<ProductShow />} />
             <Route exact path="/cart" element={<CartShow />} />
+            <Route exact path="/orders/success" element={<OrderSuccess />} />
+            <Route exact path="/orders/checkout" element={<OrderCreate />} />
             <Route exact path="/admin/orders/:id" element={<OrderShow />} />
             <Route exact path="/admin/orders" element={<OrderIndex />} />
             <Route exact path="/" element={<ProductsIndex />} />

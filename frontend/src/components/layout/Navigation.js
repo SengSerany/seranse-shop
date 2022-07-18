@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../../features/auth/authSlice';
 import { logoutCartState } from '../../features/cart/cartSlice';
+import { FaUserCircle } from 'react-icons/fa';
 import { CgShoppingCart } from 'react-icons/cg';
 import { BsFillInboxesFill } from 'react-icons/bs';
 
@@ -124,22 +125,23 @@ function Navigation() {
           </div>
         </nav>
       </div>
-      {location.pathname !== '/cart' && user.id !== null ? (
-        <div className="subheader">
-          <Link to="/cart" className="flex subheader-logo">
-            <CgShoppingCart />
-            <span className="circle circle1 ff-primary fs-200 fw-semi_bold">
-              {cartQuantity}
-            </span>
-          </Link>
-          <Link to="/admin/orders" className="flex subheader-logo sublogo-2">
-            <BsFillInboxesFill />
-          </Link>
-          <span className="circle circle2 ff-primary fs-200 fw-semi_bold">
-            {orderQuantity}
+      <div className="subheader">
+        <Link to="/profile" className="subheader-logo sublogo-2">
+          <FaUserCircle className="logo-account" />
+        </Link>
+        <Link to="/cart" className="flex subheader-logo">
+          <CgShoppingCart />
+          <span className="circle circle1 ff-primary fs-200 fw-semi_bold">
+            {cartQuantity}
           </span>
-        </div>
-      ) : null}
+        </Link>
+        <Link to="/admin/orders" className="flex subheader-logo sublogo-2">
+          <BsFillInboxesFill />
+        </Link>
+        <span className="circle circle2 ff-primary fs-200 fw-semi_bold">
+          {orderQuantity}
+        </span>
+      </div>
     </div>
   );
 }

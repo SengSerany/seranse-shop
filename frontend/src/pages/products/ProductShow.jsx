@@ -43,6 +43,7 @@ function ProductShow() {
       );
     } else {
       dispatch(changeInCart(formData));
+      toast.success('Le produit a été ajouté au panier');
     }
   };
 

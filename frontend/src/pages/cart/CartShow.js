@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ProductCartCard from '../../components/product/ProductCartCard';
 
 function CartShow() {
@@ -73,12 +74,13 @@ function CartShow() {
             </section>
 
             <div className="flex justify-content-center">
-              <button
+              <Link
+                to="/orders/checkout"
                 className="button-type bg-strong_blue text-white uppercase ff-sans_cond fs-200 letter-spacing-3 text-center"
                 style={createProductButtonStyle1}
               >
                 Commander
-              </button>
+              </Link>
             </div>
           </>
         )}
